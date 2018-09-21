@@ -1,2 +1,2 @@
 # D3M Dataset and Problem Schemas
-This contains the dataset and problem schemas in JSON format. The documentation that goes along with these schemas can be found under the [documentation/]() directory.
+This contains the dataset and problem schemas in JSON format. The documentation that goes along with these schemas can be found under the [documentation/](https://github.com/mitll/d3m-NIPS2018/tree/master/documentation) directory.
