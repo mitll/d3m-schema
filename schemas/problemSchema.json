@@ -1,0 +1,85 @@
+{
+	"about":{"type":"dict", "required":true,"schema": {
+		"problemID":{"type":"string", "required":true},
+		"problemName":{"type":"string", "required":true},
+		"problemDescription":{"type":"string", "required":false},
+		"problemURI":{"type":"string","required":false},
+		"taskType":{"type":"string","required":true, "allowed":[
+			"classification",
+			"regression",
+			"clustering",
+			"linkPrediction",
+			"vertexNomination",
+			"communityDetection",
+			"graphClustering",
+			"graphMatching",
+			"timeSeriesForecasting",
+			"collaborativeFiltering",
+			"objectDetection"
+		]},
+		"taskSubType":{"type":"string","required":false,"allowed":[
+			"binary",
+			"multiClass",
+			"multiLabel",
+			"univariate",
+			"multivariate",
+			"overlapping",
+			"nonOverlapping"
+		]},
+		"problemVersion":{"type":"string", "required":true, "default":"1.0"},
+		"problemSchemaVersion":{"type":"string", "required":true, "default":"3.1.1"}
+	}},
+	"inputs":{"type":"dict","required":true,"schema":{
+		"data":{"type":"list","required":true,"schema":{"type":"dict", "required": true, "schema": {
+			"datasetID":{"type":"string","required":true},
+			"targets":{"type":"list", "required":true,"schema":{"type":"dict","required":true,"schema":{
+				"targetIndex":{"type":"integer","required":true},
+				"resID":{"type":"string","required":true},
+				"colIndex":{"type":"integer", "required":true},
+				"colName":{"type":"string","required":true},
+				"numClusters":{"type":"integer","required":false}
+			}}}
+		}}},
+		"dataSplits":{"type":"dict","schema":{
+			"method":{"type":"string","required":true, "allowed":[
+				"holdOut",
+				"kFold"
+			], "default":"holdOut"},
+			"testSize":{"type":"float","required":false,"min":0.0,"max":1.0,"dependencies": {"method":"holdOut"}},
+			"numFolds":{"type":"integer","required":true, "default":0},
+			"stratified":{"type":"boolean","required":true,"default":true},
+			"numRepeats":{"type":"integer","required":true,"default":0},
+			"randomSeed":{"type":"integer","required":false},
+			"splitsFile":{"type":"string", "required":true, "default":"dataSplits.csv"}
+		}},
+		"performanceMetrics":{"type":"list","required":true,"schema":{"type":"dict","required":true,"schema":{
+			"metric":{"type":"string","required":true, "allowed":[
+				"accuracy",
+				"precision",
+				"recall",
+				"f1",
+				"f1Micro",
+				"f1Macro",
+				"rocAuc",
+				"rocAucMicro",
+				"rocAucMacro",
+				"meanSquaredError",
+				"rootMeanSquaredError",
+				"rootMeanSquaredErrorAvg",
+				"meanAbsoluteError",
+				"rSquared",
+				"normalizedMutualInformation",
+				"jaccardSimilarityScore",
+				"precisionAtTopK",
+				"objectDetectionAP"
+			], "allow_unknown":true},
+			"applicabilityToTarget":{"type":"string","required":false,"allowed":["singleTarget", "allTargets"], "default":"singleTarget"},
+			"K":{"type":"integer","required":false,"dependencies": {"metric":"precisionAtTopK"}},
+			"posLabel":{"type":"string","required":false, "dependencies": {"metric":"f1"}}
+		}}}
+	}},
+	"expectedOutputs":{"type":"dict","required":true,"schema":{
+		"predictionsFile": {"type":"string", "required":true, "default":"predictions.csv"},
+		"scoresFile": {"type":"string", "required":false, "default":"scores.csv"}
+	}}
+}

@@ -1,0 +1,106 @@
+{
+	"about": {"type":"dict", "required":true,"schema": {
+		"datasetID":{"type":"string", "required":true, "empty": false},
+		"datasetName":{"type":"string", "required":true, "empty": false},
+		"datasetURI":{"type":"string","required":false},
+		"description":{"type":"string","required":false},
+		"citation":{"type":"string","required":false},
+		"publicationDate":{"type":"string","required":false},
+		"humanSubjectsResearch": {"type":"boolean", "required":false},
+		"license":{"type":"string", "required":true},
+		"source":{"type":"string", "required":false},
+		"sourceURI":{"type":"string", "required":false},
+		"approximateSize":{"type":"string", "required":false},
+		"applicationDomain":{"type":"string","required":false},
+		"datasetVersion":{"type":"string", "required":true, "default":"1.0"},
+		"datasetSchemaVersion":{"type":"string", "required":true, "default":"3.1.2"},
+		"redacted":{"type":"boolean", "required":true, "default":false}
+	}},
+	
+	"dataResources":{"type":"list","required":true,"schema":{"type":"dict","required": true,"schema":{
+		"resID":{"type":"string","required":true},
+		"resPath":{"type":"string","required":true},
+		"resType":{"type":"string","allowed":[
+			"image",
+			"video",
+			"audio",
+			"speech",
+			"text",
+			"graph",
+			"edgeList",
+			"table",
+			"timeseries"
+			], "allow_unknown":true},
+		"resFormat":{"type":"list", "required":true, "schema": {"type":"string"}},
+		"isCollection":{"type":"boolean","required":true,"default":false},
+		
+		"columns": {
+			"type":"list", 
+			"required": false, 
+			"dependencies": {"resType":["table","timeseries"]}, 
+			"schema": {"type":"dict", "required": true, "schema": {
+				"colIndex":{"type":"integer", "required":true},
+				"colName":{"type":"string", "required":true, "empty":false},
+				"colDescription":{"type":"string", "required":false},
+				"colType":{"required":true, "oneof":[
+					{"type":"string","allowed":[
+						"boolean",
+						"integer",
+						"real",
+						"string",
+						"categorical",
+						"dateTime",
+						"realVector",
+						"json",
+						"geojson"]}
+				]},
+				"role":{"type":"list","required":true,"schema":{"type":"string","allowed":[
+					"index",
+					"key",
+					"attribute",
+					"suggestedTarget",
+					"timeIndicator",
+					"locationIndicator",
+					"boundaryIndicator",
+					"instanceWeight",
+					"boundingBox"], "allow_unknown":true}},
+				"refersTo":{"required":false, "schema":{
+					"resID":{"type":"string","required":true},
+					"resObject":{"required":true, "oneof":[
+						{"type":"string", "allowed":[
+							"item",
+							"node",
+							"nodeAttribute",
+							"edge",
+							"edgeAttribute"
+						]},
+						{"type":"dict", "schema":{
+							"columnIndex":{"type":"integer"}}},
+						{"type":"dict", "schema":{
+							"columnName":{"type":"string"}}}
+					]}
+				}}
+		}}
+	}}}},
+
+	"qualities":{"type":"list","required":false,"schema":{"type":"dict","required":true,"schema":{
+		"qualName":{"type":"string","required":true},
+		"qualValue":{"type":"string","required":true},
+		"qualValueType":{"type":"string","required":true,"allowed":["boolean","integer","real","string"]},
+		"qualValueUnits":{"type":"string","required":false},
+		"restrictedTo":{"type":"dict","required":false,"schema":{
+			"resID":{"type":"string","required":true},
+			"resComponent":{"oneof":[
+				{"type":"dict","required":false,"schema":{
+					"columnIndex":{"type":"integer"}}},
+				{"type":"dict","required":false,"schema":{
+					"columnName":{"type":"string"}}},
+				{"type":"string","required":false,"allowed":["nodes","edges"]},
+				{"type":"dict","required":false,"schema":{
+					"nodeAttribute":{"type":"string"}}},
+				{"type":"dict","required":false,"schema":{
+					"edgeAttribute":{"type":"string"}}}
+			]}
+		}}
+	}}}
+}

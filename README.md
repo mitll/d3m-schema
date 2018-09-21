@@ -1,0 +1,1 @@
+This repository contains the published schemas and related documentation from the DARPA [Data-Driven Discovery of Models (D3M)](https://www.darpa.mil/program/data-driven-discovery-of-models) program. These were developed researchers at MIT Lincoln Lab.

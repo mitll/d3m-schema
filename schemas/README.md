@@ -1,0 +1,2 @@
+# D3M Dataset and Problem Schemas
+This contains the dataset and problem schemas in JSON format. The documentation that goes along with these schemas can be found under the [documentation/]() directory.
