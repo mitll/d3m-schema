@@ -109,7 +109,7 @@ A table entry can also refer to other kinds of resources besides another tables,
 |-----------|---------------------|-------------|
 | columnIndex, columnName | table | Entries in this column refer to entries in another table (foreign key). See [example](#case-3) |
 | item | a collection of raw files | Each entry in this column refers to an item in a collection of raw files. See [example](#case-2) |
-| node | graph | Each entry in this column refers to a node in a graph (entries are nodeIDs). See [example seed dataset](https://gitlab.datadrivendiscovery.org/d3m/datasets/blob/master/seed_datasets_current/49_facebook/49_facebook_dataset/datasetDoc.json) |
+| node | graph | Each entry in this column refers to a node in a graph (entries are nodeIDs).
 | edge | graph | Each entry in this column refers to an edge in a graph (entries are edgeIDs). (an example might be similar to the above dataset, but instead of pointing to a node in the graph, might point to an edge) |
 | nodeAttribute | graph | Entries in this column refer to attribute values of a node in a graph. (example TBD: we currently do not have a dataset which exercises this feature. We welcome suggestions from performers.) |
 | edgeAttribute | graph | Entries in this column refer to attribute values of an edge in a graph. (example TBD: we currently do not have a dataset which exercises this feature. We welcome suggestions from performers.) |
